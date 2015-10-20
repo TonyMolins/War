@@ -103,10 +103,13 @@ $(document).ready(function () {
 
     advance();
 
-//    $(".btn").click(function () {
-//        play();
-//    });
-    $(".btn").click(function () {
+    $(".btnPlay").click(function () {
+//        alert('Played a card.');
+        play();
+    });
+    
+    $(".btnNewGame").click(function () {
+//        alert('Started a New Game');
         newGame();
     });
 });
