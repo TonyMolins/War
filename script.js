@@ -1,4 +1,4 @@
-/* globals document*/
+/* globals document, $*/
 
 $(document).ready(function () {
 
@@ -21,7 +21,7 @@ $(document).ready(function () {
     };
 
     //what does this do?
-    var deck = [52];
+    var deck = [];
     var suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
     for (var i = 0; i < suits.length; i++) {
         var suit = suits[i];
@@ -56,10 +56,14 @@ $(document).ready(function () {
     var dealCards = function () {
         var cardNumber;
         deck = shuffle(deck);
-        for (cardNumber === 0; cardNumber < deck.length; cardNumber += 2) {
+        cards_player_1 = [];
+        cards_player_2 = [];
+        for (cardNumber = 0; cardNumber < deck.length; cardNumber += 2) {
             cards_player_1.push(deck[cardNumber]);
             cards_player_2.push(deck[cardNumber + 1]);
         }
+        $("#opp-card-count").text(cards_player_1.length);
+        $("#my-card-count").text(cards_player_2.length);
     };
     //    while(deck > 0)
 
@@ -78,18 +82,19 @@ $(document).ready(function () {
     var advance = function () {
         //take the top two cards and display them
         if (cards_player_1.length) {
-            //            var card_1 = cards_player_1[0];
-            //            var card_2 = cards_player_2[0];
-            //            $("#opp-card").html(convert_value_to_string(card_1.number) + " " + card_1.suit);
-            //            $("#opp-card-count").html(cards_player_1.length);
-            //            $("#my-card").html(convert_value_to_string(card_2.number) + " " + card_2.suit);
-            //            $("#my-card-count").html(cards_player_2.length);
+            var card_1 = cards_player_1[0];
+            var card_2 = cards_player_2[0];
+            $("#opp-card").html(convert_value_to_string(card_1.number) + " of " + card_1.suit);
+            $("#opp-card-count").html(cards_player_1.length);
+            $("#my-card").html(convert_value_to_string(card_2.number) + " of " + card_2.suit);
+            $("#my-card-count").html(cards_player_2.length);
 
         }
     };
 
     var newGame = function () {
         dealCards();
+        advance ();
     };
     //create a play function
     //compare the cards
@@ -104,12 +109,12 @@ $(document).ready(function () {
     advance();
 
     $(".btnPlay").click(function () {
-//        alert('Played a card.');
+        //        alert('Played a card.');
         play();
     });
-    
+
     $(".btnNewGame").click(function () {
-//        alert('Started a New Game');
+        //        alert('Started a New Game');
         newGame();
     });
 });
