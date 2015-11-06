@@ -67,17 +67,24 @@ $(document).ready(function () {
     };
     //    while(deck > 0)
 
-
     //create a function (algorithm) called "war" that takes two cards as parameters, compares them and returns a winner. A tie should return false.
-    //  var war = function () {
-    //      if (cards_player_1 > cards_player_2)
-    //            console.log(Player 1 is the Winner);
-    //        else if (cards_player_1 < cards_player_2);
-    //        console.log(Player 2 is the Winner);
-    //        else
-    //            console.log(false)
-
-    //};
+    //    var war = function (card_1, card_2) {}
+    //    if (cards_player_1 > cards_player_2)
+    //        console.log('Player 1 is the Winner');
+    //} else if (cards_player_1 < cards_player_2) {
+    //    console.log('Player 2 is the winner');
+    //} else {
+    //    console.log('Its a tie!');
+    //}
+    //      var war = function ()
+    //          if (cards_player_1 > cards_player_2) {
+    //                console.log('Player 1 is the Winner'); 
+    //      } else if (cards_player_1 < cards_player_2); {
+    //            console.log('Player 2 is the Winner');
+    //      }  else
+    //            console.log(false);
+    //
+    //    });
 
     var advance = function () {
         //take the top two cards and display them
@@ -94,19 +101,47 @@ $(document).ready(function () {
 
     var newGame = function () {
         dealCards();
-        advance ();
+        advance();
     };
     //create a play function
     //compare the cards
     //give the winner both cards (at end of deck)
-    var play = function () {
+    var compare = function (card_1, card_2) {
+        console.log(card_1);
+        if (card_1.number > card_2.number) {
+            return card_1;
+        } else if (card_1.number < card_2.number) {
+            return card_2;
+        }
+        return false;
+    };
 
+    var giveCardsTo = function (cards_player, card_1, card_2) {
+    cards_player.push(card_1);
+    cards_player.push(card_2);
+    };
+
+    var play = function () {
+        var card_1 = cards_player_1[0];
+        var card_2 = cards_player_2[0];
+        var winnerCard = compare(card_1, card_2);
+        if (winnerCard === false) {
+            console.log('Its a tie');
+        }
+        // decide winner
+        if (winnerCard === card_1) {
+            giveCardsTo(cards_player_1, card_1, card_2);
+            console.log('Gave cards to Player 1');
+        } else {
+            giveCardsTo(cards_player_2, card_1, card_2);
+            console.log('Gave cards to Player 2');
+        }
+        // give winner cards
+        // inform who won
+        // display next cards
         //this function (defined below) will continue to the next turn
         advance();
     };
-
-
-    advance();
 
     $(".btnPlay").click(function () {
         //        alert('Played a card.');
