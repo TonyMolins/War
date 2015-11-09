@@ -126,6 +126,9 @@ $(document).ready(function () {
         var card_2 = cards_player_2.shift();
         var winnerCard = compare(card_1, card_2);
         if (winnerCard === false) {
+            //take three cards from each deck
+            //make sure cards don't disappear
+            //give all to winner when found
             console.log('Its a tie');
         }
         // decide winner
