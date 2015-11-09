@@ -117,13 +117,13 @@ $(document).ready(function () {
     };
 
     var giveCardsTo = function (cards_player, card_1, card_2) {
-    cards_player.push(card_1);
-    cards_player.push(card_2);
+        cards_player.push(card_1);
+        cards_player.push(card_2);
     };
 
     var play = function () {
-        var card_1 = cards_player_1[0];
-        var card_2 = cards_player_2[0];
+        var card_1 = cards_player_1.shift();
+        var card_2 = cards_player_2.shift();
         var winnerCard = compare(card_1, card_2);
         if (winnerCard === false) {
             console.log('Its a tie');
