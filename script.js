@@ -25,7 +25,7 @@ $(document).ready(function () {
     var suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
     for (var i = 0; i < suits.length; i++) {
         var suit = suits[i];
-        for (var j = 0; j < 13; j++) {
+        for (var j = 0; j < 4; j++) {
             deck.push({
                 number: j + 1,
                 suit: suit
@@ -119,25 +119,39 @@ $(document).ready(function () {
     var giveCardsTo = function (cards_player, card_1, card_2) {
         cards_player.push(card_1);
         cards_player.push(card_2);
+        for (var i = 0; i < thePot.length; i++) {
+            cards_player.push(thePot[i]);
+        }
     };
+
+    var thePot = [];
 
     var play = function () {
         var card_1 = cards_player_1.shift();
         var card_2 = cards_player_2.shift();
         var winnerCard = compare(card_1, card_2);
         if (winnerCard === false) {
+            console.log('Its a tie');
+            thePot.push(card_1);
+            thePot.push(card_2);
+            thePot.push(cards_player_1.shift());
+            thePot.push(cards_player_1.shift());
+            thePot.push(cards_player_1.shift());
+            thePot.push(cards_player_2.shift());
+            thePot.push(cards_player_2.shift());
+            thePot.push(cards_player_2.shift());
             //take three cards from each deck
             //make sure cards don't disappear
             //give all to winner when found
-            console.log('Its a tie');
-        }
-        // decide winner
-        if (winnerCard === card_1) {
-            giveCardsTo(cards_player_1, card_1, card_2);
-            console.log('Gave cards to Player 1');
         } else {
-            giveCardsTo(cards_player_2, card_1, card_2);
-            console.log('Gave cards to Player 2');
+            // decide winner
+            if (winnerCard === card_1) {
+                giveCardsTo(cards_player_1, card_1, card_2);
+                console.log('Gave cards to Player 1');
+            } else {
+                giveCardsTo(cards_player_2, card_1, card_2);
+                console.log('Gave cards to Player 2');
+            }
         }
         // give winner cards
         // inform who won
