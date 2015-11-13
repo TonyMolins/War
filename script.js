@@ -25,7 +25,7 @@ $(document).ready(function () {
     var suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
     for (var i = 0; i < suits.length; i++) {
         var suit = suits[i];
-        for (var j = 0; j < 4; j++) {
+        for (var j = 3; j >= 0; j--) {
             deck.push({
                 number: j + 1,
                 suit: suit
@@ -55,7 +55,7 @@ $(document).ready(function () {
     // write a function called deal that will evently divide the deck up between the two players
     var dealCards = function () {
         var cardNumber;
-        deck = shuffle(deck);
+        //        deck = shuffle(deck);
         cards_player_1 = [];
         cards_player_2 = [];
         for (cardNumber = 0; cardNumber < deck.length; cardNumber += 2) {
@@ -88,18 +88,17 @@ $(document).ready(function () {
 
     var advance = function () {
         //take the top two cards and display them
-        if (cards_player_1.length) {
-            var card_1 = cards_player_1[0];
-            var card_2 = cards_player_2[0];
-            $("#opp-card").html(convert_value_to_string(card_1.number) + " of " + card_1.suit);
-            $("#opp-card-count").html(cards_player_1.length);
-            $("#my-card").html(convert_value_to_string(card_2.number) + " of " + card_2.suit);
-            $("#my-card-count").html(cards_player_2.length);
-
-        }
+        var card_1 = cards_player_1[0];
+        var card_2 = cards_player_2[0];
+        $("#opp-card").html(convert_value_to_string(card_1.number) + " of " + card_1.suit);
+        $("#opp-card-count").html(cards_player_1.length);
+        $("#my-card").html(convert_value_to_string(card_2.number) + " of " + card_2.suit);
+        $("#my-card-count").html(cards_player_2.length);
     };
 
     var newGame = function () {
+        thePot = [];
+        gameOver = false;
         dealCards();
         advance();
     };
@@ -122,7 +121,15 @@ $(document).ready(function () {
         for (var i = 0; i < thePot.length; i++) {
             cards_player.push(thePot[i]);
         }
+        thePot = [];
+        if (cards_player_1.length === 0) {
+            console.log('Player 2 is the winner');
+            gameOver = true;
+        }
+
     };
+
+    var gameOver = false;
 
     var thePot = [];
 
@@ -157,16 +164,18 @@ $(document).ready(function () {
         // inform who won
         // display next cards
         //this function (defined below) will continue to the next turn
+        if (!gameOver) {
         advance();
+        }
     };
 
     $(".btnPlay").click(function () {
-        //        alert('Played a card.');
-        play();
+        if (!gameOver) {
+            play();
+        }
     });
 
     $(".btnNewGame").click(function () {
-        //        alert('Started a New Game');
         newGame();
     });
 });
