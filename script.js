@@ -25,7 +25,7 @@ $(document).ready(function () {
     var suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
     for (var i = 0; i < suits.length; i++) {
         var suit = suits[i];
-        for (var j = 3; j >= 0; j--) {
+        for (var j = 0; j < 13; j++) {
             deck.push({
                 number: j + 1,
                 suit: suit
@@ -55,7 +55,7 @@ $(document).ready(function () {
     // write a function called deal that will evently divide the deck up between the two players
     var dealCards = function () {
         var cardNumber;
-        //        deck = shuffle(deck);
+        deck = shuffle(deck);
         cards_player_1 = [];
         cards_player_2 = [];
         for (cardNumber = 0; cardNumber < deck.length; cardNumber += 2) {
